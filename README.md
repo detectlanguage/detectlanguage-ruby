@@ -3,6 +3,9 @@ Detect Language API Client [![Build Status](https://secure.travis-ci.org/detectl
 
 Detects language of given text. Returns detected language codes and scores.
 
+Before using Detect Language API client you setup your personal API key.
+You can get it by signing up at http://detectlanguage.com
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -14,9 +17,6 @@ Or install it yourself as:
     $ gem install detect_language
 
 ### Configuration
-
-Before using Detect Language API client you setup your personal API key.
-You can get it by signing up at http://detectlanguage.com
 
 If you are using Rails, create initializer `config/initializers/detect_language.rb` and add following code there.
 Otherwise just integrate following code into your apps configuration.
