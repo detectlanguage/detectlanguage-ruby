@@ -41,7 +41,7 @@ module DetectLanguage
     alias_method :secure?, :secure
 
     def initialize
-      @api_key            = "demo"
+      @api_key            = nil
       @api_version        = "0.2"
       @host               = "ws.detectlanguage.com"
       @user_agent         = "Detect Language API ruby gem"
