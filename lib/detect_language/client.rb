@@ -1,3 +1,4 @@
+require 'cgi'
 require 'net/http'
 require 'net/https'
 require 'json'
@@ -16,7 +17,13 @@ module DetectLanguage
       request_params = params.merge(:key => configuration.api_key)
 
       request = Net::HTTP::Post.new(request_uri(method))
-      request.set_form_data(request_params)
+
+      if RUBY_VERSION == '1.8.7'
+        set_form_data_18(request, request_params)
+      else
+        request.set_form_data(request_params)
+      end
+
       request.add_field('User-Agent', configuration.user_agent)
 
       response = http.request(request)
@@ -63,5 +70,22 @@ module DetectLanguage
 
       http
     end
+
+    def set_form_data_18(request, params, sep = '&')
+      request.body = params.map {|k,v|
+        if v.instance_of?(Array)
+          v.map {|e| "#{urlencode(k.to_s)}=#{urlencode(e.to_s)}"}.join(sep)
+        else
+          "#{urlencode(k.to_s)}=#{urlencode(v.to_s)}"
+        end
+      }.join(sep)
+
+      request.content_type = 'application/x-www-form-urlencoded'
+    end
+
+    def urlencode(str)
+      CGI::escape(str)
+    end
+
   end
 end
