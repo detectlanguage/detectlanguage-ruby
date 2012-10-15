@@ -21,8 +21,9 @@ module DetectLanguage
       @client ||= Client.new(configuration)
     end
 
-    def detect(text)
-      result = client.execute(:detect, :q => text)
+    def detect(data)
+      key = data.is_a?(Array) ? 'q[]' : 'q'
+      result = client.execute(:detect, key => data)
       result['data']['detections']
     end
 

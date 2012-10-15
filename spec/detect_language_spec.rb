@@ -38,6 +38,13 @@ describe DetectLanguage do
     it "should have simple way to detect a language" do
       subject.simple_detect("Hello world").should == "en"
     end
+
+    it "should allow sending batch requests" do
+      result = subject.detect(["Hello world", "Jau saulelė vėl atkopdama budino svietą"])
+
+      result[0][0]['language'].should == "en"
+      result[1][0]['language'].should == "lt"
+    end
   end
 
   it "should raise exception for invalid key" do
