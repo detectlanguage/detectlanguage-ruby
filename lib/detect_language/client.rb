@@ -29,7 +29,7 @@ module DetectLanguage
       response = http.request(request)
 
       case response
-        when Net::HTTPSuccess then
+        when Net::HTTPSuccess, Net::HTTPUnauthorized then
           parse_response(response.body)
         else
           raise "Failure: #{response.class}"
