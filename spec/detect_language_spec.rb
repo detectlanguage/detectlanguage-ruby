@@ -24,7 +24,7 @@ describe DetectLanguage do
   context "detection" do
     before do
       # testing key
-      subject.configuration.api_key = "24c3185fef623b537a4df60df0a8d4d9"
+      subject.configuration.api_key = "93dfb956a294140a4370a09584af2ef6"
     end
 
     it "should detect languages" do
