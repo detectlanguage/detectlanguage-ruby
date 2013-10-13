@@ -3,7 +3,7 @@ Detect Language API Client [![Build Status](https://secure.travis-ci.org/detectl
 
 Detects language of given text. Returns detected language codes and scores.
 
-Before using Detect Language API client you setup your personal API key.
+Before using Detect Language API client you have to setup your personal API key.
 You can get it by signing up at http://detectlanguage.com
 
 ## Installation
