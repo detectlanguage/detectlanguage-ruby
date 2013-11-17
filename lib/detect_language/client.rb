@@ -11,12 +11,21 @@ module DetectLanguage
       @configuration = configuration
     end
 
-    def execute(method, params)
-      http = setup_http_connection
+    def post(method, params = {})
+      execute(method, params, :http_method => Net::HTTP::Post)
+    end
 
-      request_params = params.merge(:key => configuration.api_key)
+    def get(method, params = {})
+      execute(method, params, :http_method => Net::HTTP::Get)
+    end
 
-      request = Net::HTTP::Post.new(request_uri(method))
+    private
+
+    def execute(method, params, options)
+      http            = setup_http_connection
+      http_method     = options[:http_method]
+      request_params  = params.merge(:key => configuration.api_key)
+      request         = http_method.new(request_uri(method))
 
       if RUBY_VERSION == '1.8.7'
         set_form_data_18(request, request_params)
@@ -36,12 +45,10 @@ module DetectLanguage
       end
     end
 
-    private
-
     def parse_response(response_body)
       response = JSON.parse(response_body)
 
-      if response["error"].nil?
+      if response.is_a?(Array) || response["error"].nil?
         response
       else
         raise Exception.new(response["error"]["message"])

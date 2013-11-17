@@ -64,6 +64,23 @@ Result is array of detections in the same order as the texts were passed.
       [ {"language"=>"lt", "isReliable"=>false, "confidence"=>0.04918032786885246},
         {"language"=>"lv", "isReliable"=>false, "confidence"=>0.03350083752093803} ] ]
 
+### Getting your account status
+
+    DetectLanguage.user_status
+
+#### Result
+
+    {"date"=>"2013-11-17", "requests"=>95, "bytes"=>2223, "plan"=>"FREE", "plan_expires"=>nil,
+     "daily_requests_limit"=>5000, "daily_bytes_limit"=>1048576, "status"=>"ACTIVE"}
+
+### Getting list detectable languages
+
+    DetectLanguage.languages
+
+#### Result
+
+Array of language codes and names.
+
 ## License
 
 Detect Language API Client is free software, and may be redistributed under the terms specified in the MIT-LICENSE file.

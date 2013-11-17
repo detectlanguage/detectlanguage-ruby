@@ -23,7 +23,7 @@ module DetectLanguage
 
     def detect(data)
       key = data.is_a?(Array) ? 'q[]' : 'q'
-      result = client.execute(:detect, key => data)
+      result = client.post(:detect, key => data)
       result['data']['detections']
     end
 
@@ -35,6 +35,14 @@ module DetectLanguage
       else
         detections[0]['language']
       end
+    end
+
+    def user_status
+      client.post('user/status')
+    end
+
+    def languages
+      client.get('languages')
     end
   end
 end
