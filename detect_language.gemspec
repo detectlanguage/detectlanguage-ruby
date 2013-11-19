@@ -14,4 +14,5 @@ Gem::Specification.new do |gem|
   gem.name          = "detect_language"
   gem.require_paths = ["lib"]
   gem.version       = DetectLanguage::VERSION
+  gem.license       = 'MIT'
 end
