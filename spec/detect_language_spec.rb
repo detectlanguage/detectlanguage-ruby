@@ -32,7 +32,7 @@ describe DetectLanguage do
     it "should raise exception for invalid key" do
       lambda {
         subject.detect("Hello world")
-      }.should raise_error(::DetectLanguage::Exception)
+      }.should raise_error(DetectLanguage::Error)
     end
   end
 

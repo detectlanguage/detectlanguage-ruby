@@ -1,5 +1,5 @@
 require "detect_language/version"
-require "detect_language/exception"
+require "detect_language/errors"
 require "detect_language/configuration"
 require "detect_language/client"
 

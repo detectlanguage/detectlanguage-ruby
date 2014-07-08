@@ -51,7 +51,7 @@ module DetectLanguage
       if response.is_a?(Array) || response["error"].nil?
         response
       else
-        raise Exception.new(response["error"]["message"])
+        raise(Error, response["error"]["message"])
       end
     end
 
