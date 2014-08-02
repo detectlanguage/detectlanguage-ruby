@@ -81,6 +81,14 @@ Result is array of detections in the same order as the texts were passed.
 
 Array of language codes and names.
 
+### Secure Mode
+
+If you are passing sensitive information to the Detect Language API you can enable SSL.
+
+SSL usage adds data and processing overhead. Please use only if encryption is really necessary.
+
+    DetectLanguage.configuration.secure = true
+
 ## License
 
 Detect Language API Client is free software, and may be redistributed under the terms specified in the MIT-LICENSE file.

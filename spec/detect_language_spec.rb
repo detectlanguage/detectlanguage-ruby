@@ -55,6 +55,17 @@ describe DetectLanguage do
       result[0][0]['language'].should == "en"
       result[1][0]['language'].should == "lt"
     end
+
+
+    context 'secure mode' do
+      before { DetectLanguage.configuration.secure = true }
+      after { DetectLanguage.configuration.secure = false }
+
+      it "detects language" do
+        result = subject.detect("Hello world")
+        result[0]['language'].should == "en"
+      end
+    end
   end
 
   describe '.user_status' do
