@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["laurynas.butkus@gmail.com"]
   gem.description   = %q{Language Detection API Client}
   gem.summary       = %q{Detects language of given text. Returns detected language codes and scores.}
-  gem.homepage      = "https://github.com/detectlanguage/detect_language"
+  gem.homepage      = "https://github.com/detectlanguage/detectlanguage-ruby"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }

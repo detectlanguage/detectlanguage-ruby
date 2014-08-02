@@ -1,4 +1,4 @@
-Detect Language API Client [![Build Status](https://secure.travis-ci.org/detectlanguage/detect_language.png)](http://travis-ci.org/detectlanguage/detect_language)
+Detect Language API Client [![Build Status](https://secure.travis-ci.org/detectlanguage/detectlanguage-ruby.png)](http://travis-ci.org/detectlanguage/detectlanguage-ruby)
 ========
 
 Detects language of given text. Returns detected language codes and scores.
