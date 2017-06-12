@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe DetectLanguage do
 
-  let(:api_key) { '93dfb956a294140a4370a09584af2ef6' }
+  let(:api_key) {ENV['DETECTLANGUAGE_API_KEY']}
 
   before do
     DetectLanguage.configuration.api_key = api_key
@@ -12,9 +12,9 @@ describe DetectLanguage do
 
   context "configuration" do
     it "should have default configuration values" do
-      subject.configuration.api_version.should  == '0.2'
-      subject.configuration.host.should         == 'ws.detectlanguage.com'
-      subject.configuration.user_agent.should   == 'Detect Language API ruby gem'
+      subject.configuration.api_version.should == '0.2'
+      subject.configuration.host.should == 'ws.detectlanguage.com'
+      subject.configuration.user_agent.should == 'Detect Language API ruby gem'
     end
 
     it "should allow configuring" do
@@ -27,7 +27,7 @@ describe DetectLanguage do
   end
 
   context 'invalid api key' do
-    let(:api_key) { 'invalid' }
+    let(:api_key) {'invalid'}
 
     it "should raise exception for invalid key" do
       lambda {
@@ -56,6 +56,13 @@ describe DetectLanguage do
       result[1][0]['language'].should == "lt"
     end
 
+    it "with empty text in the batch it detects correctly" do
+      result = subject.detect(["", "Hello", "Jau saulelė vėl atkopdama budino svietą"])
+
+      result[0].should be_empty
+      result[1][0]['language'].should == "en"
+      result[2][0]['language'].should == "lt"
+    end
 
     context 'secure mode' do
       before { DetectLanguage.configuration.secure = true }
@@ -69,7 +76,7 @@ describe DetectLanguage do
   end
 
   describe '.user_status' do
-    subject(:user_status) { DetectLanguage.user_status }
+    subject(:user_status) {DetectLanguage.user_status}
 
     it 'fetches user status' do
       expect(user_status['date']).to be_kind_of(String)
@@ -82,10 +89,10 @@ describe DetectLanguage do
   end
 
   describe '.languages' do
-    subject(:languages) { DetectLanguage.languages }
+    subject(:languages) {DetectLanguage.languages}
 
     it 'fetches list of detectable languages' do
-      expect(languages).to include({'code' => 'en', 'name' => 'ENGLISH'})
+      expect(languages).to include({ 'code' => 'en', 'name' => 'ENGLISH' })
     end
   end
 end

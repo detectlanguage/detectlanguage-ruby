@@ -1,9 +1,11 @@
 rvm:
-  - 1.9.2
-  - 1.9.3
-  - 2.0.0
-  - 2.1.1
-  - jruby-19mode # JRuby in 1.9 mode
-  - rbx-2
-script: "bundle exec rake spec"
-
+- 1.9.2
+- 1.9.3
+- 2.0.0
+- 2.1.1
+- jruby-19mode
+- rbx-2
+script: bundle exec rake spec
+env:
+  global:
+    secure: Xt9aOp3jO9r7e+ljIRJSIZwifiYXzirp0wZ3GbsQ8zOd5vmIjIehReu+7e4fRm1/Wfp8q85Yl5otYPxa2HOeDl67aA9WIiCvSH8cSb4QrM6jahAc9T2td5io9GSiWPWaQiA3Th8dOOuPmBaiLWgBZ9k9MzMMJ5lj1F1whW6gTEE=
