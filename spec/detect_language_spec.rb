@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe DetectLanguage do
 
-  let(:api_key) {ENV['DETECTLANGUAGE_API_KEY']}
+  let(:api_key) { ENV['DETECTLANGUAGE_API_KEY'] }
 
   before do
     DetectLanguage.configuration.api_key = api_key
