@@ -4,7 +4,7 @@ Detect Language API Client [![Build Status](https://secure.travis-ci.org/detectl
 Detects language of given text. Returns detected language codes and scores.
 
 Before using Detect Language API client you have to setup your personal API key.
-You can get it by signing up at http://detectlanguage.com
+You can get it by signing up at https://detectlanguage.com
 
 ## Installation
 
@@ -23,6 +23,9 @@ Otherwise just integrate following code into your apps configuration.
 
     DetectLanguage.configure do |config|
       config.api_key = "YOUR API KEY"
+
+      # enable secure mode (SSL) if you are passing sensitive data
+      # config.secure = true
     end
 
 ## Usage
@@ -80,14 +83,6 @@ Result is array of detections in the same order as the texts were passed.
 #### Result
 
 Array of language codes and names.
-
-### Secure Mode
-
-If you are passing sensitive information to the Detect Language API you can enable SSL.
-
-SSL usage adds data and processing overhead. Please use only if encryption is really necessary.
-
-    DetectLanguage.configuration.secure = true
 
 ## License
 
