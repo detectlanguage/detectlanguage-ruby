@@ -50,7 +50,7 @@ If you need just a language code you can use `simple_detect`. It returns just th
 ### Batch detection
 
 It is possible to detect language of several texts with one request.
-This method is faster than doing one request per text.
+This method is significantly faster than doing one request per text.
 To use batch detection just pass array of texts to `detect` method.
 
     DetectLanguage.detect(["Buenos dias señor", "Labas rytas"])
