@@ -38,7 +38,7 @@ module DetectLanguage
     end
 
     def user_status
-      client.post('user/status')
+      client.get('user/status')
     end
 
     def languages
