@@ -24,15 +24,15 @@ module DetectLanguage
     def execute(method, params, options)
       http            = setup_http_connection
       http_method     = options[:http_method]
-      request_params  = params.merge(:key => configuration.api_key)
       request         = http_method.new(request_uri(method))
 
       if RUBY_VERSION == '1.8.7'
-        set_form_data_18(request, request_params)
+        set_form_data_18(request, params)
       else
-        request.set_form_data(request_params)
+        request.set_form_data(params)
       end
 
+      request.add_field('Authorization', 'Bearer ' + configuration.api_key)
       request.add_field('User-Agent', configuration.user_agent)
 
       response = http.request(request)
