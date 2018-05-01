@@ -1,5 +1,9 @@
-Detect Language API Client [![Build Status](https://secure.travis-ci.org/detectlanguage/detectlanguage-ruby.png)](http://travis-ci.org/detectlanguage/detectlanguage-ruby)
+Detect Language API Client 
 ========
+
+[![Gem](https://img.shields.io/gem/v/detect_language.svg)](https://rubygems.org/gems/detect_language)
+[![Build Status](https://secure.travis-ci.org/detectlanguage/detectlanguage-ruby.svg)](http://travis-ci.org/detectlanguage/detectlanguage-ruby)
+
 
 Detects language of given text. Returns detected language codes and scores.
 
