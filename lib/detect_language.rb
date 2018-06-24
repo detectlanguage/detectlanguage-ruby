@@ -18,7 +18,7 @@ module DetectLanguage
     end
 
     def client
-      @client ||= Client.new(configuration)
+      Thread.current[:detect_language_client] ||= Client.new(configuration)
     end
 
     def detect(data)
