@@ -32,8 +32,6 @@ module DetectLanguage
         request.set_form_data(params)
       end
 
-      raise(ApiKeyError, 'API key is not set') if configuration.api_key.nil?
-
       request.add_field('Authorization', 'Bearer ' + configuration.api_key)
       request.add_field('User-Agent', configuration.user_agent)
 
