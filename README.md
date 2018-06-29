@@ -1,7 +1,7 @@
 Detect Language API Client 
 ========
 
-[![Gem](https://img.shields.io/gem/v/detect_language.svg)](https://rubygems.org/gems/detect_language)
+[![Gem Version](https://badge.fury.io/rb/detect_language.svg)](https://badge.fury.io/rb/detect_language)
 [![Build Status](https://secure.travis-ci.org/detectlanguage/detectlanguage-ruby.svg)](http://travis-ci.org/detectlanguage/detectlanguage-ruby)
 
 
