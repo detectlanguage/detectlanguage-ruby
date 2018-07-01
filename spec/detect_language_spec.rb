@@ -14,15 +14,7 @@ describe DetectLanguage do
     it "should have default configuration values" do
       subject.configuration.api_version.should == '0.2'
       subject.configuration.host.should == 'ws.detectlanguage.com'
-      subject.configuration.user_agent.should == 'Detect Language API ruby gem'
-    end
-
-    it "should allow configuring" do
-      subject.configure do |config|
-        config.user_agent = "Detect Language testing"
-      end
-
-      subject.configuration.user_agent.should == "Detect Language testing"
+      subject.configuration.user_agent.should == "detectlanguage-ruby/#{DetectLanguage::VERSION}"
     end
   end
 
