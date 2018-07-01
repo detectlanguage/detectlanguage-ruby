@@ -7,8 +7,9 @@ rvm:
 - 2.5.0
 - ruby-head
 - ruby-head-clang
-- jruby-1.7.26
-- jruby-9.1.9.0
+- jruby-1.7
+- jruby-9.1
+- jruby-head
 script: bundle exec rake spec
 env:
   global:
