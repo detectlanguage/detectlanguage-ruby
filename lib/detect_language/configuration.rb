@@ -44,7 +44,7 @@ module DetectLanguage
       @api_key            = nil
       @api_version        = "0.2"
       @host               = "ws.detectlanguage.com"
-      @user_agent         = "Detect Language API ruby gem"
+      @user_agent         = "detectlanguage-ruby/#{VERSION}"
     end
 
     def protocol
