@@ -48,8 +48,7 @@ DetectLanguage.detect("Buenos dias señor")
 #### Result
 
 ```ruby
-[ {"language"=>"es", "isReliable"=>false, "confidence"=>0.3271028037383178},
-  {"language"=>"pt", "isReliable"=>false, "confidence"=>0.08356545961002786} ]
+[{"language"=>"es", "isReliable"=>true, "confidence"=>6.62}]
 ```
 
 ### Simple language detection
@@ -81,10 +80,8 @@ DetectLanguage.detect(["Buenos dias señor", "Labas rytas"])
 Result is array of detections in the same order as the texts were passed.
 
 ```ruby
-[ [ {"language"=>"es", "isReliable"=>false, "confidence"=>0.3271028037383178},
-    {"language"=>"pt", "isReliable"=>false, "confidence"=>0.08356545961002786} ],
-  [ {"language"=>"lt", "isReliable"=>false, "confidence"=>0.04918032786885246},
-    {"language"=>"lv", "isReliable"=>false, "confidence"=>0.03350083752093803} ] ]
+[ [{"language"=>"es", "isReliable"=>true, "confidence"=>6.62}], 
+  [{"language"=>"lt", "isReliable"=>true, "confidence"=>6.82}] ]
 ```
 
 ### Getting your account status
