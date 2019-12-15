@@ -4,7 +4,6 @@ Detect Language API Client
 [![Gem Version](https://badge.fury.io/rb/detect_language.svg)](https://badge.fury.io/rb/detect_language)
 [![Build Status](https://secure.travis-ci.org/detectlanguage/detectlanguage-ruby.svg)](http://travis-ci.org/detectlanguage/detectlanguage-ruby)
 
-
 Detects language of given text. Returns detected language codes and scores.
 
 Before using Detect Language API client you have to setup your personal API key.
@@ -14,45 +13,58 @@ You can get it by signing up at https://detectlanguage.com
 
 Add this line to your application's Gemfile:
 
-    gem 'detect_language'
+```
+gem 'detect_language'
+```
 
 Or install it yourself as:
 
-    $ gem install detect_language
+```
+gem install detect_language
+```
 
 ### Configuration
 
 If you are using Rails, create initializer `config/initializers/detect_language.rb` and add following code there.
 Otherwise just integrate following code into your apps configuration.
 
-    DetectLanguage.configure do |config|
-      config.api_key = "YOUR API KEY"
+```ruby
+DetectLanguage.configure do |config|
+  config.api_key = "YOUR API KEY"
 
-      # enable secure mode (SSL) if you are passing sensitive data
-      # config.secure = true
-    end
+  # enable secure mode (SSL) if you are passing sensitive data
+  # config.secure = true
+end
+```
 
 ## Usage
 
 ### Language detection
 
-    DetectLanguage.detect("Buenos dias señor")
+```ruby
+DetectLanguage.detect("Buenos dias señor")
+```
 
 #### Result
 
-    [ {"language"=>"es", "isReliable"=>false, "confidence"=>0.3271028037383178},
-      {"language"=>"pt", "isReliable"=>false, "confidence"=>0.08356545961002786} ]
+```ruby
+[ {"language"=>"es", "isReliable"=>false, "confidence"=>0.3271028037383178},
+  {"language"=>"pt", "isReliable"=>false, "confidence"=>0.08356545961002786} ]
+```
 
 ### Simple language detection
 
 If you need just a language code you can use `simple_detect`. It returns just the language code.
 
-    DetectLanguage.simple_detect("Buenos dias señor")
+```ruby
+DetectLanguage.simple_detect("Buenos dias señor")
+```
 
 #### Result
 
-    "es"
-
+```ruby
+"es"
+```
 
 ### Batch detection
 
@@ -60,29 +72,39 @@ It is possible to detect language of several texts with one request.
 This method is significantly faster than doing one request per text.
 To use batch detection just pass array of texts to `detect` method.
 
-    DetectLanguage.detect(["Buenos dias señor", "Labas rytas"])
+```ruby
+DetectLanguage.detect(["Buenos dias señor", "Labas rytas"])
+```
 
 #### Result
 
 Result is array of detections in the same order as the texts were passed.
 
-    [ [ {"language"=>"es", "isReliable"=>false, "confidence"=>0.3271028037383178},
-        {"language"=>"pt", "isReliable"=>false, "confidence"=>0.08356545961002786} ],
-      [ {"language"=>"lt", "isReliable"=>false, "confidence"=>0.04918032786885246},
-        {"language"=>"lv", "isReliable"=>false, "confidence"=>0.03350083752093803} ] ]
+```ruby
+[ [ {"language"=>"es", "isReliable"=>false, "confidence"=>0.3271028037383178},
+    {"language"=>"pt", "isReliable"=>false, "confidence"=>0.08356545961002786} ],
+  [ {"language"=>"lt", "isReliable"=>false, "confidence"=>0.04918032786885246},
+    {"language"=>"lv", "isReliable"=>false, "confidence"=>0.03350083752093803} ] ]
+```
 
 ### Getting your account status
 
-    DetectLanguage.user_status
+```ruby
+DetectLanguage.user_status
+```
 
 #### Result
 
-    {"date"=>"2013-11-17", "requests"=>95, "bytes"=>2223, "plan"=>"FREE", "plan_expires"=>nil,
-     "daily_requests_limit"=>5000, "daily_bytes_limit"=>1048576, "status"=>"ACTIVE"}
+```ruby
+{"date"=>"2013-11-17", "requests"=>95, "bytes"=>2223, "plan"=>"FREE", "plan_expires"=>nil,
+ "daily_requests_limit"=>5000, "daily_bytes_limit"=>1048576, "status"=>"ACTIVE"}
+```
 
-### Getting list detectable languages
+### Getting list supported languages
 
-    DetectLanguage.languages
+```ruby
+DetectLanguage.languages
+```
 
 #### Result
 
