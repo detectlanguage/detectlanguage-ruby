@@ -1,4 +1,4 @@
-Detect Language API Client 
+Detect Language API Ruby Client
 ========
 
 [![Gem Version](https://badge.fury.io/rb/detect_language.svg)](https://badge.fury.io/rb/detect_language)
