@@ -4,7 +4,7 @@ Detect Language API Client
 [![Gem Version](https://badge.fury.io/rb/detect_language.svg)](https://badge.fury.io/rb/detect_language)
 [![Build Status](https://secure.travis-ci.org/detectlanguage/detectlanguage-ruby.svg)](http://travis-ci.org/detectlanguage/detectlanguage-ruby)
 
-Detects language of given text. Returns detected language codes and scores.
+Detects language of the given text. Returns detected language codes and scores.
 
 Before using Detect Language API client you have to setup your personal API key.
 You can get it by signing up at https://detectlanguage.com
