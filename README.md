@@ -2,7 +2,7 @@ Detect Language API Ruby Client
 ========
 
 [![Gem Version](https://badge.fury.io/rb/detect_language.svg)](https://badge.fury.io/rb/detect_language)
-[![Build Status](https://secure.travis-ci.org/detectlanguage/detectlanguage-ruby.svg)](http://travis-ci.org/detectlanguage/detectlanguage-ruby)
+[![Build Status](https://github.com/detectlanguage/detectlanguage-ruby/actions/workflows/main.yml/badge.svg)](https://github.com/detectlanguage/detectlanguage-ruby/actions)
 
 Detects language of the given text. Returns detected language codes and scores.
 
