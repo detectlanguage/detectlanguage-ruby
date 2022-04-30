@@ -12,7 +12,6 @@ jobs:
           - 2.7
           - 3.0
           - ruby-head
-          - ruby-head-clang
           - jruby-9.1
           - jruby-head
     name: Ruby ${{ matrix.ruby-version }} sample
@@ -21,7 +20,7 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby-version }}
-          bundler-cache: true
+#          bundler-cache: true
       - env:
           DETECTLANGUAGE_API_KEY: ${{ secrets.DETECTLANGUAGE_API_KEY }}
         run: bundle exec rake spec
