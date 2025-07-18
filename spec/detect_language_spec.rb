@@ -1,90 +1,102 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
-require 'spec_helper'
-
-describe DetectLanguage do
-
+RSpec.describe DetectLanguage do
   let(:api_key) { ENV['DETECTLANGUAGE_API_KEY'] }
+  let(:secure) { true }
 
   before do
-    DetectLanguage.configuration.api_key = api_key
+    described_class.configuration.api_key = api_key
+    described_class.configuration.secure = secure
   end
 
-  context "configuration" do
-    it "should have default configuration values" do
-      subject.configuration.api_version.should == '0.2'
-      subject.configuration.host.should == 'ws.detectlanguage.com'
-      subject.configuration.user_agent.should == "detectlanguage-ruby/#{DetectLanguage::VERSION}"
-    end
-  end
+  describe '.configuration' do
+    subject { described_class.configuration }
 
-  context 'invalid api key' do
-    let(:api_key) {'invalid'}
-
-    it "should raise exception for invalid key" do
-      lambda {
-        subject.detect("Hello world")
-      }.should raise_error(DetectLanguage::Error)
+    it 'has default configuration values' do
+      expect(subject.api_version).to eq('0.2')
+      expect(subject.host).to eq('ws.detectlanguage.com')
+      expect(subject.user_agent).to eq("detectlanguage-ruby/#{DetectLanguage::VERSION}")
     end
   end
 
-  context "detection" do
-    it "should detect languages" do
-      result = subject.detect("Hello world")
-      result[0]['language'].should == "en"
+  describe '.detect' do
+    subject { described_class.detect(query) }
 
-      result = subject.detect("Jau saulelė vėl atkopdama budino svietą")
-      result[0]['language'].should == "lt"
+    let(:query) { 'Hello world' }
+
+    it 'detects language' do
+      expect(subject).to be_an(Array)
+      expect(subject.first).to be_a(Hash)
+      expect(subject.first['language']).to eq('en')
     end
 
-    it "should have simple way to detect a language" do
-      subject.simple_detect("Hello world").should == "en"
+    context 'with unicode characters' do
+      let(:query) { 'Jau saulelė vėl atkopdama budino svietą' }
+
+      it 'detects language with unicode characters' do
+        expect(subject.first['language']).to eq('lt')
+      end
     end
 
-    it "should allow sending batch requests" do
-      result = subject.detect(["Hello world", "Jau saulelė vėl atkopdama budino svietą"])
+    context 'with batch requests' do
+      let(:query) { ['', 'Hello world', 'Jau saulelė vėl atkopdama budino svietą'] }
 
-      result[0][0]['language'].should == "en"
-      result[1][0]['language'].should == "lt"
+      it 'detects languages in batch' do
+        expect(subject).to be_an(Array)
+        expect(subject.size).to eq(3)
+        expect(subject[0]).to be_empty
+        expect(subject[1][0]['language']).to eq('en')
+        expect(subject[2][0]['language']).to eq('lt')
+      end
     end
 
-    it "with empty text in the batch it detects correctly" do
-      result = subject.detect(["", "Hello", "Jau saulelė vėl atkopdama budino svietą"])
+    context 'invalid api key' do
+      let(:api_key) { 'invalid' }
 
-      result[0].should be_empty
-      result[1][0]['language'].should == "en"
-      result[2][0]['language'].should == "lt"
-    end
-
-    context 'secure mode' do
-      before { DetectLanguage.configuration.secure = true }
-      after { DetectLanguage.configuration.secure = false }
-
-      it "detects language" do
-        result = subject.detect("Hello world")
-        result[0]['language'].should == "en"
+      it "should raise exception for invalid key" do
+        expect { subject }.to raise_error(DetectLanguage::Error)
       end
     end
   end
 
+  describe '.simple_detect' do
+    subject { described_class.simple_detect(query) }
+
+    let(:query) { 'Hello world' }
+
+    it 'detects language' do
+      expect(subject).to eq('en')
+    end
+  end
+
   describe '.user_status' do
-    subject(:user_status) {DetectLanguage.user_status}
+    subject { DetectLanguage.user_status }
 
     it 'fetches user status' do
-      expect(user_status['date']).to be_kind_of(String)
-      expect(user_status['requests']).to be_kind_of(Integer)
-      expect(user_status['bytes']).to be_kind_of(Integer)
-      expect(user_status['plan']).to be_kind_of(String)
-      expect(user_status['daily_requests_limit']).to be_kind_of(Integer)
-      expect(user_status['daily_bytes_limit']).to be_kind_of(Integer)
+      expect(subject).to include(
+        'date' => kind_of(String),
+        'requests' => kind_of(Integer),
+        'bytes' => kind_of(Integer),
+        'plan' => kind_of(String),
+        'daily_requests_limit' => kind_of(Integer),
+        'daily_bytes_limit' => kind_of(Integer),
+      )
     end
   end
 
   describe '.languages' do
-    subject(:languages) {DetectLanguage.languages}
+    subject { DetectLanguage.languages }
 
     it 'fetches list of detectable languages' do
-      expect(languages).to include({ 'code' => 'en', 'name' => 'ENGLISH' })
+      expect(subject).to include('code' => 'en', 'name' => 'ENGLISH')
+    end
+
+    context 'with http' do
+      let(:secure) { false }
+
+      it 'fetches languages over http' do
+        expect(subject).to include('code' => 'en', 'name' => 'ENGLISH')
+      end
     end
   end
 end

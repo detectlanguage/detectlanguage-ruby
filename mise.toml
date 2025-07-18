@@ -1,2 +1,5 @@
 [tools]
 ruby = "3.4.5"
+
+[env]
+_.file = ".env.local"
