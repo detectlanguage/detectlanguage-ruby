@@ -2,7 +2,7 @@ name: Build
 on: [push,pull_request]
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.arch }}
     strategy:
       matrix:
         ruby-version:
@@ -12,7 +12,10 @@ jobs:
           - 3.4
           - ruby-head
           - jruby-head
-    name: Ruby ${{ matrix.ruby-version }} sample
+        arch:
+          - ubuntu-latest
+          - ubuntu-latest-arm64
+    name: Ruby ${{ matrix.ruby-version }} on ${{ matrix.arch }}
     steps:
       - uses: actions/checkout@v3
       - uses: ruby/setup-ruby@v1
