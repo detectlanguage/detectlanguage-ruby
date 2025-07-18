@@ -2,19 +2,16 @@
 
 RSpec.describe DetectLanguage do
   let(:api_key) { ENV['DETECTLANGUAGE_API_KEY'] }
-  let(:secure) { true }
 
   before do
-    described_class.configuration.api_key = api_key
-    described_class.configuration.secure = secure
+    described_class.config.api_key = api_key
   end
 
-  describe '.configuration' do
-    subject { described_class.configuration }
+  describe '.config' do
+    subject { described_class.config }
 
     it 'has default configuration values' do
-      expect(subject.api_version).to eq('0.2')
-      expect(subject.host).to eq('ws.detectlanguage.com')
+      expect(subject.base_url).to eq('https://ws.detectlanguage.com/0.2/')
       expect(subject.user_agent).to eq("detectlanguage-ruby/#{DetectLanguage::VERSION}")
     end
   end
@@ -89,14 +86,6 @@ RSpec.describe DetectLanguage do
 
     it 'fetches list of detectable languages' do
       expect(subject).to include('code' => 'en', 'name' => 'ENGLISH')
-    end
-
-    context 'with http' do
-      let(:secure) { false }
-
-      it 'fetches languages over http' do
-        expect(subject).to include('code' => 'en', 'name' => 'ENGLISH')
-      end
     end
   end
 end

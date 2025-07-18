@@ -5,20 +5,18 @@ require "detect_language/client"
 
 module DetectLanguage
   class << self
-    attr_writer :configuration
+    attr_writer :config
 
     def configure
-      yield(configuration)
+      yield(config)
     end
 
-    # The configuration object.
-    # @see DetectLanguage.configure
-    def configuration
-      @configuration ||= Configuration.new
+    def config
+      @config ||= Configuration.new
     end
 
     def client
-      Thread.current[:detect_language_client] ||= Client.new(configuration)
+      Thread.current[:detect_language_client] ||= Client.new(config)
     end
 
     def detect(data)

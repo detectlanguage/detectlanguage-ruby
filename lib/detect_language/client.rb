@@ -1,39 +1,33 @@
-require 'cgi'
 require 'net/http'
 require 'net/https'
 require 'json'
 
 module DetectLanguage
   class Client
-    attr_reader :configuration
+    attr_reader :config
 
-    def initialize(configuration)
-      @configuration = configuration
+    def initialize(config)
+      @config = config
     end
 
-    def post(method, params = {})
-      execute(method, params, :http_method => Net::HTTP::Post)
+    def post(path, params = {})
+      execute(Net::HTTP::Post, path, params)
     end
 
-    def get(method, params = {})
-      execute(method, params, :http_method => Net::HTTP::Get)
+    def get(path, params = {})
+      execute(Net::HTTP::Get, path, params)
     end
 
     private
 
-    def execute(method, params, options)
-      http            = setup_http_connection
-      http_method     = options[:http_method]
-      request         = http_method.new(request_uri(method))
+    def execute(method, path, params)
+      uri = URI.parse(config.base_url)
+      http = setup_http_connection(uri)
+      request = method.new(uri.path + path.to_s)
+      request.set_form_data(params)
 
-      if RUBY_VERSION == '1.8.7'
-        set_form_data_18(request, params)
-      else
-        request.set_form_data(params)
-      end
-
-      request['Authorization'] = 'Bearer ' + configuration.api_key.to_s
-      request['User-Agent'] = configuration.user_agent
+      request['Authorization'] = 'Bearer ' + config.api_key.to_s
+      request['User-Agent'] = config.user_agent
 
       response = http.request(request)
 
@@ -55,44 +49,22 @@ module DetectLanguage
       end
     end
 
-    def request_uri(method)
-      "/#{configuration.api_version}/#{method}"
-    end
+    def setup_http_connection(uri)
+      http = Net::HTTP::Proxy(
+        config.proxy_host, config.proxy_port, config.proxy_user, config.proxy_pass
+      ).new(uri.host, uri.port)
 
-    def setup_http_connection
-      http =
-        Net::HTTP::Proxy(configuration.proxy_host, configuration.proxy_port, configuration.proxy_user,
-                         configuration.proxy_pass).
-          new(configuration.host, configuration.port)
+      http.read_timeout = config.http_read_timeout
+      http.open_timeout = config.http_open_timeout
 
-      http.read_timeout = configuration.http_read_timeout
-      http.open_timeout = configuration.http_open_timeout
-
-      if configuration.secure?
-        http.use_ssl      = true
-        http.verify_mode  = OpenSSL::SSL::VERIFY_PEER
+      if uri.scheme == 'https'
+        http.use_ssl = true
+        http.verify_mode = OpenSSL::SSL::VERIFY_PEER
       else
-        http.use_ssl      = false
+        http.use_ssl = false
       end
 
       http
     end
-
-    def set_form_data_18(request, params, sep = '&')
-      request.body = params.map {|k,v|
-        if v.instance_of?(Array)
-          v.map {|e| "#{urlencode(k.to_s)}=#{urlencode(e.to_s)}"}.join(sep)
-        else
-          "#{urlencode(k.to_s)}=#{urlencode(v.to_s)}"
-        end
-      }.join(sep)
-
-      request.content_type = 'application/x-www-form-urlencoded'
-    end
-
-    def urlencode(str)
-      CGI::escape(str)
-    end
-
   end
 end
