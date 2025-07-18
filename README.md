@@ -6,9 +6,6 @@ Detect Language API Ruby Client
 
 Detects language of the given text. Returns detected language codes and scores.
 
-Before using Detect Language API client you have to setup your personal API key.
-You can get it by signing up at https://detectlanguage.com
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -17,23 +14,13 @@ Add this line to your application's Gemfile:
 gem 'detect_language'
 ```
 
-Or install it yourself as:
-
-```
-gem install detect_language
-```
-
 ### Configuration
 
-If you are using Rails, create initializer `config/initializers/detect_language.rb` and add following code there.
-Otherwise just integrate following code into your apps configuration.
+Get your personal API key by signing up at https://detectlanguage.com
 
 ```ruby
 DetectLanguage.configure do |config|
   config.api_key = "YOUR API KEY"
-
-  # enable secure mode (SSL) if you are passing sensitive data
-  # config.secure = true
 end
 ```
 
@@ -51,12 +38,12 @@ DetectLanguage.detect("Buenos dias señor")
 [{"language"=>"es", "isReliable"=>true, "confidence"=>6.62}]
 ```
 
-### Simple language detection
+### Language code detection
 
-If you need just a language code you can use `simple_detect`. It returns just the language code.
+If you need just a language code you can use `detect_code`.
 
 ```ruby
-DetectLanguage.simple_detect("Buenos dias señor")
+DetectLanguage.detect_code("Buenos dias señor")
 ```
 
 #### Result
@@ -69,10 +56,10 @@ DetectLanguage.simple_detect("Buenos dias señor")
 
 It is possible to detect language of several texts with one request.
 This method is significantly faster than doing one request per text.
-To use batch detection just pass array of texts to `detect` method.
+To use batch detection just pass array of texts to `detect_batch` method.
 
 ```ruby
-DetectLanguage.detect(["Buenos dias señor", "Labas rytas"])
+DetectLanguage.detect_batch(["Buenos dias señor", "Labas rytas"])
 ```
 
 #### Result
@@ -87,7 +74,7 @@ Result is array of detections in the same order as the texts were passed.
 ### Getting your account status
 
 ```ruby
-DetectLanguage.user_status
+DetectLanguage.account_status
 ```
 
 #### Result

@@ -26,7 +26,7 @@ module DetectLanguage
     def detect_batch(queries)
       raise(ArgumentError, 'Expected an Array of queries') unless queries.is_a?(Array)
 
-      client.post('detect-batch', 'q[]': queries)
+      client.post('detect-batch', q: queries)
     end
 
     def detect_code(text)

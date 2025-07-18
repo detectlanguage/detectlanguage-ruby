@@ -10,22 +10,23 @@ module DetectLanguage
       @config = config
     end
 
-    def post(path, params = {})
-      execute(Net::HTTP::Post, path, params)
+    def post(path, payload = {})
+      execute(Net::HTTP::Post, path, body: payload.to_json)
     end
 
-    def get(path, params = {})
-      execute(Net::HTTP::Get, path, params)
+    def get(path)
+      execute(Net::HTTP::Get, path)
     end
 
     private
 
-    def execute(method, path, params)
-      uri = URI.parse(config.base_url)
+    def execute(method, path, body: nil)
+      uri = URI(config.base_url)
       http = setup_http_connection(uri)
       request = method.new(uri.path + path)
-      request.set_form_data(params)
+      request.body = body
 
+      request['Content-Type'] = 'application/json'
       request['Authorization'] = 'Bearer ' + config.api_key.to_s
       request['User-Agent'] = config.user_agent
 
