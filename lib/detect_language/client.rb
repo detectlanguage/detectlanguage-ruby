@@ -23,7 +23,7 @@ module DetectLanguage
     def execute(method, path, params)
       uri = URI.parse(config.base_url)
       http = setup_http_connection(uri)
-      request = method.new(uri.path + path.to_s)
+      request = method.new(uri.path + path)
       request.set_form_data(params)
 
       request['Authorization'] = 'Bearer ' + config.api_key.to_s

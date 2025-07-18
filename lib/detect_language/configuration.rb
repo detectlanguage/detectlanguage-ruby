@@ -29,7 +29,7 @@ module DetectLanguage
 
     def initialize
       @api_key = nil
-      @base_url = "https://ws.detectlanguage.com/0.2/"
+      @base_url = "https://ws.detectlanguage.com/v3/"
       @user_agent = "detectlanguage-ruby/#{VERSION}"
     end
   end

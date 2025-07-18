@@ -19,24 +19,26 @@ module DetectLanguage
       Thread.current[:detect_language_client] ||= Client.new(config)
     end
 
-    def detect(data)
-      key = data.is_a?(Array) ? 'q[]' : 'q'
-      result = client.post(:detect, key => data)
-      result['data']['detections']
+    def detect(query)
+      client.post('detect', q: query)
     end
 
-    def simple_detect(text)
+    def detect_batch(queries)
+      raise(ArgumentError, 'Expected an Array of queries') unless queries.is_a?(Array)
+
+      client.post('detect-batch', 'q[]': queries)
+    end
+
+    def detect_code(text)
       detections = detect(text)
 
-      if detections.empty?
-        nil
-      else
-        detections[0]['language']
-      end
+      return if detections.empty?
+
+      detections[0]['language']
     end
 
-    def user_status
-      client.get('user/status')
+    def account_status
+      client.get('account/status')
     end
 
     def languages

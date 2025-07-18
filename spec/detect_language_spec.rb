@@ -11,7 +11,7 @@ RSpec.describe DetectLanguage do
     subject { described_class.config }
 
     it 'has default configuration values' do
-      expect(subject.base_url).to eq('https://ws.detectlanguage.com/0.2/')
+      expect(subject.base_url).to eq('https://ws.detectlanguage.com/v3/')
       expect(subject.user_agent).to eq("detectlanguage-ruby/#{DetectLanguage::VERSION}")
     end
   end
@@ -35,18 +35,6 @@ RSpec.describe DetectLanguage do
       end
     end
 
-    context 'with batch requests' do
-      let(:query) { ['', 'Hello world', 'Jau saulelė vėl atkopdama budino svietą'] }
-
-      it 'detects languages in batch' do
-        expect(subject).to be_an(Array)
-        expect(subject.size).to eq(3)
-        expect(subject[0]).to be_empty
-        expect(subject[1][0]['language']).to eq('en')
-        expect(subject[2][0]['language']).to eq('lt')
-      end
-    end
-
     context 'invalid api key' do
       let(:api_key) { 'invalid' }
 
@@ -56,20 +44,50 @@ RSpec.describe DetectLanguage do
     end
   end
 
-  describe '.simple_detect' do
-    subject { described_class.simple_detect(query) }
+  describe '.detect_code' do
+    subject { described_class.detect_code(query) }
 
     let(:query) { 'Hello world' }
 
     it 'detects language' do
       expect(subject).to eq('en')
     end
+
+    context 'with empty query' do
+      let(:query) { ' ' }
+
+      it 'returns nil for empty query' do
+        expect(subject).to be_nil
+      end
+    end
   end
 
-  describe '.user_status' do
-    subject { DetectLanguage.user_status }
+  describe '.detect_batch' do
+    subject { described_class.detect_batch(queries) }
 
-    it 'fetches user status' do
+    let(:queries) { ['', 'Hello world', 'Jau saulelė vėl atkopdama budino svietą'] }
+
+    it 'detects languages in batch' do
+      expect(subject).to be_an(Array)
+      expect(subject.size).to eq(3)
+      expect(subject[0]).to be_empty
+      expect(subject[1][0]['language']).to eq('en')
+      expect(subject[2][0]['language']).to eq('lt')
+    end
+
+    context 'when queries is not an array' do
+      let(:queries) { 'Hello world' }
+
+      it 'raises an ArgumentError' do
+        expect { subject }.to raise_error(ArgumentError, "Expected an Array of queries")
+      end
+    end
+  end
+
+  describe '.account_status' do
+    subject { described_class.account_status }
+
+    it 'fetches account status' do
       expect(subject).to include(
         'date' => kind_of(String),
         'requests' => kind_of(Integer),
@@ -85,7 +103,7 @@ RSpec.describe DetectLanguage do
     subject { DetectLanguage.languages }
 
     it 'fetches list of detectable languages' do
-      expect(subject).to include('code' => 'en', 'name' => 'ENGLISH')
+      expect(subject).to include('code' => 'en', 'name' => 'English')
     end
   end
 end
