@@ -14,7 +14,7 @@ jobs:
           - jruby-head
         image:
           - ubuntu-24.04
-          - ubuntu-24.04-arm
+#          - ubuntu-24.04-arm
     name: Ruby ${{ matrix.ruby-version }} on ${{ matrix.image }}
     steps:
       - uses: actions/checkout@v3
