@@ -20,3 +20,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ⚠️ Proxy URL configured using `config.proxy`
 - HTTPS is used by default. Removed secure_mode configuration
 - Client connection is reused. If you change configuration after client is initialized, you need to reset client using `DetectLanguage.client = nil`.
+
+### Removed
+- Ruby 1.x support
