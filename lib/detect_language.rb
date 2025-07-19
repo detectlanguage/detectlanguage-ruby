@@ -5,40 +5,44 @@ require "detect_language/client"
 
 module DetectLanguage
   class << self
-    attr_writer :configuration
+    attr_writer :config
 
     def configure
-      yield(configuration)
+      yield(config)
     end
 
-    # The configuration object.
-    # @see DetectLanguage.configure
-    def configuration
-      @configuration ||= Configuration.new
+    def config
+      @config ||= Configuration.new
     end
 
     def client
-      Thread.current[:detect_language_client] ||= Client.new(configuration)
+      Thread.current[:detect_language_client] ||= Client.new(config)
     end
 
-    def detect(data)
-      key = data.is_a?(Array) ? 'q[]' : 'q'
-      result = client.post(:detect, key => data)
-      result['data']['detections']
+    def client=(client)
+      Thread.current[:detect_language_client] = client
     end
 
-    def simple_detect(text)
+    def detect(query)
+      client.post('detect', q: query)
+    end
+
+    def detect_batch(queries)
+      raise(ArgumentError, 'Expected an Array of queries') unless queries.is_a?(Array)
+
+      client.post('detect-batch', q: queries)
+    end
+
+    def detect_code(text)
       detections = detect(text)
 
-      if detections.empty?
-        nil
-      else
-        detections[0]['language']
-      end
+      return if detections.empty?
+
+      detections[0]['language']
     end
 
-    def user_status
-      client.get('user/status')
+    def account_status
+      client.get('account/status')
     end
 
     def languages
