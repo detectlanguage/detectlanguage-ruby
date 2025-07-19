@@ -54,7 +54,7 @@ RSpec.describe DetectLanguage do
           .with('ws.detectlanguage.com', 443, 'my-proxy', 8080, 'dummy', 'pass', nil, true)
           .and_call_original
 
-        expect { subject }.to raise_error(Socket::ResolutionError)
+        expect { subject }.to raise_error(SocketError)
       end
     end
   end
