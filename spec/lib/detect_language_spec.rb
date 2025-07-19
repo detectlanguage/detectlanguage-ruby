@@ -2,9 +2,12 @@
 
 RSpec.describe DetectLanguage do
   let(:api_key) { ENV['DETECTLANGUAGE_API_KEY'] }
+  let(:proxy) { nil }
 
   before do
+    described_class.client = nil
     described_class.config.api_key = api_key
+    described_class.config.proxy = proxy
   end
 
   describe '.config' do
@@ -40,6 +43,14 @@ RSpec.describe DetectLanguage do
 
       it "should raise exception for invalid key" do
         expect { subject }.to raise_error(DetectLanguage::Error)
+      end
+    end
+
+    xcontext 'with proxy' do
+      let(:proxy) { 'http://my-proxy:8080' }
+
+      it 'uses the proxy for requests' do
+        expect { subject }.not_to raise_error
       end
     end
   end

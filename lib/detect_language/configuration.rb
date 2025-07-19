@@ -1,13 +1,14 @@
 module DetectLanguage
   class Configuration
-    # The API key for your project, found on your homepage after you login into detectlanguage.com website
+    # The API key for your project, found on your homepage after you log in into
+    # https://detectlanguage.com website
     attr_accessor :api_key
-
-    # HTTP request user agent (defaults to 'Detect Language API ruby gem').
-    attr_accessor :user_agent
 
     # API base URL
     attr_accessor :base_url
+
+    # HTTP request user agent (defaults to 'Detect Language API ruby gem').
+    attr_accessor :user_agent
 
     # The HTTP open timeout in seconds.
     attr_accessor :http_open_timeout
@@ -15,17 +16,8 @@ module DetectLanguage
     # The HTTP read timeout in seconds.
     attr_accessor :http_read_timeout
 
-    # The hostname of your proxy server (if using a proxy).
-    attr_accessor :proxy_host
-
-    # The port of your proxy server (if using a proxy).
-    attr_accessor :proxy_port
-
-    # The username to use when logging into your proxy server (if using a proxy).
-    attr_accessor :proxy_user
-
-    # The password to use when logging into your proxy server (if using a proxy).
-    attr_accessor :proxy_pass
+    # The HTTP proxy to use for requests. Example: 'http://my-proxy:8080'
+    attr_accessor :proxy
 
     def initialize
       @api_key = nil

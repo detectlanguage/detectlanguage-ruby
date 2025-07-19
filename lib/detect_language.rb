@@ -19,6 +19,10 @@ module DetectLanguage
       Thread.current[:detect_language_client] ||= Client.new(config)
     end
 
+    def client=(client)
+      Thread.current[:detect_language_client] = client
+    end
+
     def detect(query)
       client.post('detect', q: query)
     end

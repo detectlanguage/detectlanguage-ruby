@@ -21,19 +21,17 @@ module DetectLanguage
     private
 
     def execute(method, path, body: nil)
-      uri = URI(config.base_url)
-      http = setup_http_connection(uri)
-      request = method.new(uri.path + path)
+      request = method.new(base_uri.path + path)
       request.body = body
 
       request['Content-Type'] = 'application/json'
       request['Authorization'] = 'Bearer ' + config.api_key.to_s
       request['User-Agent'] = config.user_agent
 
-      response = http.request(request)
+      response = connection.request(request)
 
       case response
-      when Net::HTTPSuccess, Net::HTTPUnauthorized then
+      when Net::HTTPSuccess, Net::HTTPUnauthorized
         parse_response(response.body)
       else
         raise(Error, "Failure: #{response.class}")
@@ -50,20 +48,28 @@ module DetectLanguage
       end
     end
 
-    def setup_http_connection(uri)
-      http = Net::HTTP::Proxy(
-        config.proxy_host, config.proxy_port, config.proxy_user, config.proxy_pass
-      ).new(uri.host, uri.port)
+    def base_uri
+      @base_uri ||= URI(config.base_url)
+    end
 
+    def connection
+      @connection ||= setup_connection
+    end
+
+    def setup_connection
+      http = if config.proxy
+        proxy = URI(config.proxy)
+        proxy_use_ssl = proxy.scheme == 'https'
+        Net::HTTP.new(base_uri.hostname, base_uri.port,
+          proxy.hostname, proxy.port, proxy.user, proxy.password, nil, proxy_use_ssl)
+      else
+        Net::HTTP.new(base_uri.hostname, base_uri.port)
+      end
+
+      http.use_ssl = base_uri.scheme == 'https'
+      http.verify_mode = OpenSSL::SSL::VERIFY_PEER if http.use_ssl?
       http.read_timeout = config.http_read_timeout
       http.open_timeout = config.http_open_timeout
-
-      if uri.scheme == 'https'
-        http.use_ssl = true
-        http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-      else
-        http.use_ssl = false
-      end
 
       http
     end
