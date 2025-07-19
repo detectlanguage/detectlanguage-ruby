@@ -6,6 +6,7 @@ Detect Language API Ruby Client
 
 Detects language of the given text. Returns detected language codes and scores.
 
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -13,6 +14,10 @@ Add this line to your application's Gemfile:
 ```
 gem 'detect_language'
 ```
+
+### Upgrading
+
+When upgrading please check [changelog](CHANGELOG.md) for breaking changes.
 
 ### Configuration
 
@@ -35,7 +40,7 @@ DetectLanguage.detect("Buenos dias señor")
 #### Result
 
 ```ruby
-[{"language"=>"es", "isReliable"=>true, "confidence"=>6.62}]
+[{"language"=>"es", "score"=>0.95}]
 ```
 
 ### Language code detection
@@ -67,8 +72,8 @@ DetectLanguage.detect_batch(["Buenos dias señor", "Labas rytas"])
 Result is array of detections in the same order as the texts were passed.
 
 ```ruby
-[ [{"language"=>"es", "isReliable"=>true, "confidence"=>6.62}], 
-  [{"language"=>"lt", "isReliable"=>true, "confidence"=>6.82}] ]
+[ [{"language"=>"es", "score"=>0.95}], 
+  [{"language"=>"lt", "score"=>0.98}] ]
 ```
 
 ### Getting your account status
