@@ -47,11 +47,11 @@ RSpec.describe DetectLanguage do
     end
 
     context 'with proxy' do
-      let(:proxy) { 'https://dummy:pass@my-proxy:8080' }
+      let(:proxy) { 'http://dummy:pass@my-proxy:8080' }
 
       it 'uses the proxy for requests' do
         allow(Net::HTTP).to receive(:new)
-          .with('ws.detectlanguage.com', 443, 'my-proxy', 8080, 'dummy', 'pass', nil, true)
+          .with('ws.detectlanguage.com', 443, 'my-proxy', 8080, 'dummy', 'pass')
           .and_call_original
 
         expect { subject }.to raise_error(SocketError)

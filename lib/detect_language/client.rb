@@ -59,9 +59,7 @@ module DetectLanguage
     def setup_connection
       http = if config.proxy
         proxy = URI(config.proxy)
-        proxy_use_ssl = proxy.scheme == 'https'
-        Net::HTTP.new(base_uri.hostname, base_uri.port,
-          proxy.hostname, proxy.port, proxy.user, proxy.password, nil, proxy_use_ssl)
+        Net::HTTP.new(base_uri.hostname, base_uri.port, proxy.hostname, proxy.port, proxy.user, proxy.password)
       else
         Net::HTTP.new(base_uri.hostname, base_uri.port)
       end
