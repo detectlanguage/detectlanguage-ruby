@@ -31,7 +31,7 @@ end
 
 ## Usage
 
-### Language detection
+### Detect language
 
 ```ruby
 DetectLanguage.detect('Dolce far niente')
@@ -43,7 +43,7 @@ DetectLanguage.detect('Dolce far niente')
 [{"language" => "it", "score" => 0.5074}]
 ```
 
-### Language code detection
+### Detect single code
 
 If you need just a language code you can use `detect_code`.
 
@@ -75,7 +75,7 @@ Result is array of detections in the same order as the texts were passed.
 [[{"language" => "it", "score" => 0.5074}], [{"language" => "lt", "score" => 0.3063}]]
 ```
 
-### Getting your account status
+### Get your account status
 
 ```ruby
 DetectLanguage.account_status
@@ -88,7 +88,7 @@ DetectLanguage.account_status
  "daily_requests_limit"=>5000, "daily_bytes_limit"=>1048576, "status"=>"ACTIVE"}
 ```
 
-### Getting list of supported languages
+### Get list of supported languages
 
 ```ruby
 DetectLanguage.languages
