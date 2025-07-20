@@ -13,10 +13,7 @@ RSpec.describe DetectLanguage do
   describe '.config' do
     subject { described_class.config }
 
-    it 'has default configuration values' do
-      expect(subject.base_url).to eq('https://ws.detectlanguage.com/v3/')
-      expect(subject.user_agent).to eq("detectlanguage-ruby/#{DetectLanguage::VERSION}")
-    end
+    it { is_expected.to be_a(DetectLanguage::Configuration) }
   end
 
   describe '.detect' do

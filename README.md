@@ -25,7 +25,7 @@ Get your personal API key by signing up at https://detectlanguage.com
 
 ```ruby
 DetectLanguage.configure do |config|
-  config.api_key = "YOUR API KEY"
+  config.api_key = 'YOUR API KEY'
 end
 ```
 
@@ -34,13 +34,13 @@ end
 ### Language detection
 
 ```ruby
-DetectLanguage.detect("Buenos dias señor")
+DetectLanguage.detect('Dolce far niente')
 ```
 
 #### Result
 
 ```ruby
-[{"language"=>"es", "score"=>0.95}]
+[{"language" => "it", "score" => 0.5074}]
 ```
 
 ### Language code detection
@@ -48,13 +48,13 @@ DetectLanguage.detect("Buenos dias señor")
 If you need just a language code you can use `detect_code`.
 
 ```ruby
-DetectLanguage.detect_code("Buenos dias señor")
+DetectLanguage.detect_code('Dolce far niente')
 ```
 
 #### Result
 
 ```ruby
-"es"
+"it"
 ```
 
 ### Batch detection
@@ -64,7 +64,7 @@ This method is significantly faster than doing one request per text.
 To use batch detection just pass array of texts to `detect_batch` method.
 
 ```ruby
-DetectLanguage.detect_batch(["Buenos dias señor", "Labas rytas"])
+DetectLanguage.detect_batch(['Dolce far niente', 'Labas rytas'])
 ```
 
 #### Result
@@ -72,8 +72,7 @@ DetectLanguage.detect_batch(["Buenos dias señor", "Labas rytas"])
 Result is array of detections in the same order as the texts were passed.
 
 ```ruby
-[ [{"language"=>"es", "score"=>0.95}], 
-  [{"language"=>"lt", "score"=>0.98}] ]
+[[{"language" => "it", "score" => 0.5074}], [{"language" => "lt", "score" => 0.3063}]]
 ```
 
 ### Getting your account status
