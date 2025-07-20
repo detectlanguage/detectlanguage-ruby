@@ -88,7 +88,7 @@ DetectLanguage.account_status
  "daily_requests_limit"=>5000, "daily_bytes_limit"=>1048576, "status"=>"ACTIVE"}
 ```
 
-### Getting list supported languages
+### Getting list of supported languages
 
 ```ruby
 DetectLanguage.languages
