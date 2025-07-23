@@ -16,6 +16,15 @@ RSpec.describe DetectLanguage do
     it { is_expected.to be_a(DetectLanguage::Configuration) }
   end
 
+  describe '.configuration' do
+    subject { described_class.configuration }
+
+    it 'delegates to config' do
+      expect(described_class).to receive(:config)
+      expect { subject }.to output(/DEPRECATED/).to_stderr
+    end
+  end
+
   describe '.detect' do
     subject { described_class.detect(query) }
 
@@ -32,6 +41,23 @@ RSpec.describe DetectLanguage do
 
       it 'detects language with unicode characters' do
         expect(subject.first['language']).to eq('lt')
+      end
+    end
+
+    context 'with array of queries' do
+      let(:query) { ['Hello world', 'Bonjour le monde'] }
+      let(:result) { double }
+
+      before do
+        allow(described_class).to receive(:detect_batch).with(query).and_return(result)
+      end
+
+      it 'delegates to detect_batch' do
+        expect(subject).to be(result)
+      end
+
+      it 'issues a deprecation warning' do
+        expect { described_class.detect(query) }.to output(/DEPRECATED/).to_stderr
       end
     end
 
@@ -108,6 +134,15 @@ RSpec.describe DetectLanguage do
         'daily_requests_limit' => kind_of(Integer),
         'daily_bytes_limit' => kind_of(Integer),
       )
+    end
+  end
+
+  describe '.user_status' do
+    subject { described_class.user_status }
+
+    it 'delegates to account_status' do
+      expect(described_class).to receive(:account_status)
+      expect { subject }.to output(/DEPRECATED/).to_stderr
     end
   end
 

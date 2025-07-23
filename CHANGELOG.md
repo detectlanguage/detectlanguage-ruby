@@ -12,14 +12,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `detect_batch` method for batch detections
 
 ### Changed
-- Switched to v3 API which uses updated language detection model
-- ⚠️ `simple_detect` method renamed to `detect_code`
+- Switched to v3 API which uses an updated language detection model
 - ⚠️ `detect` method result fields are `language` and `score`
-- ⚠️ `detect` method no longer accept arrays - use `detect_batch` instead
-- ⚠️ `user_status` method renamed to `account_status`
+- ⚠️ `detect` for batch detection is deprecated, use `detect_batch` instead
+- ⚠️ `simple_detect` deprecated, use `detect_code` instead
+- ⚠️ `user_status` deprecated, use `account_status` instead
+- ⚠️ `configuration` deprecated, use `config` instead
 - ⚠️ Proxy URL configured using `config.proxy`
-- HTTPS is used by default. Removed secure mode configuration.
-- Client connection is reused. If you change configuration after client is initialized, you need to reset client using `DetectLanguage.client = nil`.
+- Client connection is reused. If you change configuration after the client is initialized, you need to reset client using `DetectLanguage.client = nil`.
 
 ### Removed
+- Secure mode configuration. HTTPS is always used.
 - Ruby 1.x support
