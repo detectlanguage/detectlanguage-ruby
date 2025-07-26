@@ -14,12 +14,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Switched to v3 API which uses an updated language detection model
 - ⚠️ `detect` method result fields are `language` and `score`
-- ⚠️ `detect` for batch detection is deprecated, use `detect_batch` instead
-- ⚠️ `simple_detect` deprecated, use `detect_code` instead
-- ⚠️ `user_status` deprecated, use `account_status` instead
-- ⚠️ `configuration` deprecated, use `config` instead
 - ⚠️ Proxy URL configured using `config.proxy`
 - Client connection is reused. If you change configuration after the client is initialized, you need to reset client using `DetectLanguage.client = nil`.
+
+### Deprecated
+- Calling `detect` with array argument. Use `detect_batch` instead.
+- `simple_detect` - Use `detect_code` instead.
+- `user_status` - Use `account_status` instead.
+- `configuration` - Use `config` instead.
 
 ### Removed
 - Secure mode configuration. HTTPS is always used.
